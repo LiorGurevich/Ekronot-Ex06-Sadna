@@ -9,7 +9,9 @@ private:
 
 public:
 	Shape();
-	virtual float get_area() const;
+	// added the 'bool has_depth = false' arg in order to conect both 'get_area'
+	// of shape and Triangle
+	virtual float get_area(bool has_depth = false) const;
 
 };
 
