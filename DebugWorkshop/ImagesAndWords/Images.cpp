@@ -29,7 +29,7 @@ bool WriteImage(Image* img, const char* filename)
 	os.write((char*)&img->header, sizeof(ImageHeader));
 
 	// calculate image size
-	uint16_t imgsize = img->header.width * img->header.height;
+	uint32_t imgsize = img->header.width * img->header.height; // <----------------------
 
 	// write image content
 	os.write(img->data, imgsize);
@@ -49,7 +49,7 @@ Image *ReadImage(const char* filename)
 	is.read((char*)&img->header, sizeof(ImageHeader));
 
 	// calculate image size
-	uint16_t imgsize = img->header.width * img->header.height;
+	uint32_t imgsize = img->header.width * img->header.height; // <----------------------
 	img->data = new char[imgsize];
 
 	// read image content
@@ -78,7 +78,7 @@ Image *GenerateDummyImage(uint16_t width, uint16_t height)
 	img->header.mode = 1;
 
 	// calculate image size
-	uint16_t imgsize = img->header.width * img->header.height;
+	uint32_t imgsize = img->header.width * img->header.height; // <----------------------
 	img->data = new char[imgsize];
 
 	// generate dummy content
@@ -91,10 +91,19 @@ Image *GenerateDummyImage(uint16_t width, uint16_t height)
 }
 
 
+/*
+* There problem was that the length of the 'imgsize' was too short,
+* so i increased its capability (whereever there is an arrow, 
+* lines 32, 52, 82).
+*/
+
 int main()
 {
-	Image *im = ReadImage("img1.magi");
-	FreeImage(im);
+	Image *im1 = ReadImage("img1.magi");
+	FreeImage(im1);
+
+	Image* im2 = ReadImage("img2.magi");
+	FreeImage(im2);
 
 	return 0;
 }
