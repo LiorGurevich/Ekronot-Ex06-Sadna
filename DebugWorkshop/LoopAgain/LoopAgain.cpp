@@ -8,9 +8,9 @@ int main()
 
 	std::cout << "what is the size of the series? ";
 	std::cin >> size;
+	// increased size by 1 and change the condition, cause size is unsigned
 	size++;
-
-	while (size > 0)
+	while (size > 0) 
 	{
 		std::cout << t1 << ", ";
 
